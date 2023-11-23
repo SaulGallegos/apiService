@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 const dbConnection = require('./db/index');
 dbConnection();
 
+app.use('/api/user', require('./api/user.js'));
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });

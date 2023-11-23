@@ -2,14 +2,14 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const checkValidation = require('../middlewares/validations.js');
-const { register, login } = require('../controllers/user.js');
+const { register, login, getUsers } = require('../controllers/user.js');
 
 const router = Router();
 
 router.post(
   '/register',
   [
-    check('email', 'El email es obligatorio').isEmail(),
+    check('username', 'El username es obligatorio').not().isEmpty(),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     checkValidation,
   ],
@@ -19,11 +19,13 @@ router.post(
 router.post(
   '/login',
   [
-    check('email', 'El email es obligatorio').isEmail(),
+    check('username', 'El username es obligatorio').not().isEmpty(),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     checkValidation,
   ],
   login
 );
+
+router.get('/', getUsers);
 
 module.exports = router;
